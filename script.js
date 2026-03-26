@@ -26,8 +26,24 @@ pizzaJson.map((item, index)=>{
    //descricao das pizzas
    pizzaItem.querySelector('.pizza-item--desc').innerHTML = item.description;
 
-   
+
+   //id das pizzas
+
+   //Evento de click e abrir modal
+   pizzaItem.querySelector('a').addEventListener('click', (e)=>{
+       e.preventDefault(); //previne o comportamento padrao do link
+
+    //abrir modal
+    qs('.pizzaWindowArea').style.opacity = 0;
+    qs('.pizzaWindowArea').style.display = 'flex';
+    //função para timer
+    setTimeout(()=>{
+        qs('.pizzaWindowArea').style.opacity = 1;
+    },200);
+   });
+
     //add os dados
     qs('.pizza-area').append(pizzaItem);
+
 
 });
