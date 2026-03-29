@@ -1,3 +1,4 @@
+let modalQT =1;
 const qs = (el)=>{
     return document.querySelector(el);
 }
@@ -36,7 +37,7 @@ pizzaJson.map((item, index)=>{
    //Evento de click e abrir modal
    pizzaItem.querySelector('a').addEventListener('click', (e)=>{
         e.preventDefault(); //previne o comportamento padrao do link
-
+        modalQT = 1;
         //capturar o datakey que esta na classe pizza item dentro do html
         //closest -> pega o elemento pai mais proximo
         let key = e.target.closest('.pizza-item').getAttribute('data-key');
@@ -53,6 +54,7 @@ pizzaJson.map((item, index)=>{
             qs('.pizzaWindowArea').style.opacity = 1;
         },200);
 
+        
         //preencher os tamanhos pizzas
         qsAll('.pizzaInfo--size').forEach((size, sizeIndex)=>{
             
@@ -62,7 +64,7 @@ pizzaJson.map((item, index)=>{
 
         qs('.pizzaBig img').src = item.img;
         
-        
+        qs('.pizzaInfo--qt').innerHTML = modalQT;
         
    });
 
@@ -83,5 +85,30 @@ function closeModal(){
     },500);
 }
     //selecionando os botoes cancelar
-    //o foreach executa todo o array um por vez (2 cancels)
-    qsAll('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item)=>{item.addEventListener('click', closeModal)});
+    //o foreach executa todo o array um por vez (2 botoes)
+    qsAll('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item)=>{
+        item.addEventListener('click', closeModal)
+    });
+
+    qs('.pizzaInfo--qtmais').addEventListener('click', ()=>{
+        modalQT++;
+        qs('.pizzaInfo--qt').innerHTML = modalQT;
+    });
+
+    qs('.pizzaInfo--qtmenos').addEventListener('click', ()=>{
+        if(modalQT > 1){
+            modalQT--;
+            qs('.pizzaInfo--qt').innerHTML = modalQT;
+        }
+    });
+
+    qsAll('.pizzaInfo--size').forEach((size, sizeIndex)=>{
+            //desmascar os itens e marcar e referente ao tamanho da pizza
+            size.addEventListener('click', (e)=>{
+                qs('.pizzaInfo--size.selected').classList.remove('selected');
+                //adicionando o selectecd ao proprio item que to clicando
+                size.classList.add('selected'); 
+
+            });
+
+        });
