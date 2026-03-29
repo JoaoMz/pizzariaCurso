@@ -1,4 +1,6 @@
+let cart = []
 let modalQT =1;
+let modalKey = 0;
 const qs = (el)=>{
     return document.querySelector(el);
 }
@@ -37,10 +39,11 @@ pizzaJson.map((item, index)=>{
    //Evento de click e abrir modal
    pizzaItem.querySelector('a').addEventListener('click', (e)=>{
         e.preventDefault(); //previne o comportamento padrao do link
-        modalQT = 1;
         //capturar o datakey que esta na classe pizza item dentro do html
         //closest -> pega o elemento pai mais proximo
         let key = e.target.closest('.pizza-item').getAttribute('data-key');
+        modalQT = 1;
+        modalKey = key;
         qs('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
         qs('.pizzaInfo--desc').innerHTML = pizzaJson[key].description;
         qs('.pizzaInfo--actualPrice').innerHTML = `R$ ${pizzaJson[key].price.toFixed(2)}`;
@@ -112,3 +115,26 @@ function closeModal(){
             });
 
         });
+    
+        //botao add carrinho
+        qs('.pizzaInfo--addButton').addEventListener('click', ()=>{
+
+
+            let size = parseInt(qs('.pizzaInfo--size.selected').getAttribute('data-key)'));
+
+            //adicionando ao array carrinho
+            cart.push({
+                id:pizzaJson[modalKey].id,
+                size,
+                qt:modalQT
+            })
+            // Qual a pizza?
+            //modalKey
+            // Qual o tamanho?
+            //let size = qs('.pizzaInfo--size.selected').getAttribute('data-key');
+            // Quantas pizzas?
+            //modalQT
+            closeModal();
+            
+
+        })
