@@ -118,22 +118,35 @@ function closeModal(){
     
         //botao add carrinho
         qs('.pizzaInfo--addButton').addEventListener('click', ()=>{
-
-
             let size = parseInt(qs('.pizzaInfo--size.selected').getAttribute('data-key)'));
 
-            //adicionando ao array carrinho
-            cart.push({
-                id:pizzaJson[modalKey].id,
-                size,
-                qt:modalQT
-            })
-            // Qual a pizza?
-            //modalKey
-            // Qual o tamanho?
-            //let size = qs('.pizzaInfo--size.selected').getAttribute('data-key');
-            // Quantas pizzas?
-            //modalQT
+            //identificador
+            let identifier = pizzaJson[modalKey].id+'@'+size;
+            
+            //verificando se o item ja existe
+            let key = cart.findIndex((item)=>{
+                return item.identifier == identifier;
+            });
+
+            if(key > -1){
+                cart[key].qt += modalQT;
+            }else{
+                // Qual a pizza?
+                //modalKey
+                // Qual o tamanho?
+                //let size = qs('.pizzaInfo--size.selected').getAttribute('data-key');
+                // Quantas pizzas?
+                //modalQT
+                
+                //adicionando ao array carrinho
+                cart.push({
+                    identifier,
+                    id:pizzaJson[modalKey].id,
+                    size,
+                    qt:modalQT
+                })
+                }
+            
             closeModal();
             
 
