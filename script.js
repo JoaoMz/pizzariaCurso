@@ -163,18 +163,14 @@ function updateCart() {
         qs('.cart').innerHTML = '';
 
         for (let i in cart) {
-            let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id);
-
+            let pizzaItem = pizzaJson.find((item)=>item.id == cart[i].id);
+            console.log(pizzaItem);
             //clonar o template
             let cartItem = qs('.models .cart--item').cloneNode(true);
 
             cartItem.querySelector('img').src = pizzaItem.img;
             cartItem.querySelector('.cart--item-nome').innerHTML = pizzaItem.name;
             cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].qt;
-
-            let price = pizzaItem.price * cart[i].qt;
-            cartItem.querySelector('.cart--item-valor').innerHTML = `R$ ${price.toFixed(2)}`;
-
             qs('.cart').append(cartItem);
         }
     }
