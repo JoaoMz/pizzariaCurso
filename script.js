@@ -137,7 +137,7 @@ function closeModal(){
                 //let size = qs('.pizzaInfo--size.selected').getAttribute('data-key');
                 // Quantas pizzas?
                 //modalQT
-                
+
                 //adicionando ao array carrinho
                 cart.push({
                     identifier,
@@ -146,8 +146,24 @@ function closeModal(){
                     qt:modalQT
                 })
                 }
-            
+            updateCart();
             closeModal();
             
+        });
 
-        })
+function updateCart(){
+    //se tiver itens no carrinho mostrar
+    if(cart.leght > 0){
+        qs('aside').classList.add('show');
+        for(let i in cart){
+            let pizzaItem = pizzaJson.find((item)=>{
+                return item.id == cart[i].id;
+            })
+        }
+
+    }
+    //se nao remove da tela
+    else{
+        qs('aside').classList.remove('show');
+    }
+};
