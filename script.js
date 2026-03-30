@@ -168,8 +168,24 @@ function updateCart() {
             //clonar o template
             let cartItem = qs('.models .cart--item').cloneNode(true);
 
+            //Concatenando Nome pizza
+            let pizzaSizeName;
+            switch (cart[i].size) {
+                case 0:
+                    pizzaSizeName = 'P';
+                    break;
+                case 1:
+                    pizzaSizeName = 'M';
+                    break;
+                case 2:
+                    pizzaSizeName = 'G';
+                    break;
+            }
+
+            let pizzaName = `${pizzaItem.name} (${pizzaSizeName})`;
+            //preencher os dados
             cartItem.querySelector('img').src = pizzaItem.img;
-            cartItem.querySelector('.cart--item-nome').innerHTML = pizzaItem.name;
+            cartItem.querySelector('.cart--item-nome').innerHTML = pizzaName;
             cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].qt;
             qs('.cart').append(cartItem);
         }
