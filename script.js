@@ -153,7 +153,22 @@ qs('.pizzaInfo--addButton').addEventListener('click', () => {
     closeModal();
 });
 
+qs('.menu-openner').addEventListener('click', () => {
+    //aparecer o menu
+    if (cart.length > 0) {
+        qs('aside').style.left = '0';
+    }
+
+});
+
+//fechar o menu
+qs('.menu-closer').addEventListener('click', () => {
+    qs('aside').style.left = '100vw';
+});
+
 function updateCart() {
+    qs('.menu-openner span').innerHTML = cart.length;
+    
 
     //se tiver itens no carrinho mostrar
     if (cart.length > 0) {
@@ -214,7 +229,7 @@ function updateCart() {
 
         desconto = subtotal * 0.1;
         total = subtotal - desconto;
-        
+
         qs('.subtotal span:last-child').innerHTML = `R$ ${subtotal.toFixed(2)}`;
         qs('.desconto span:last-child').innerHTML = `R$ ${desconto.toFixed(2)}`;
         qs('.total span:last-child').innerHTML = `R$ ${total.toFixed(2)}`;
@@ -223,6 +238,10 @@ function updateCart() {
 
     //se nao remove da tela
     else {
+        //remove no desktop
         qs('aside').classList.remove('show');
+        //fechar o menu celular
+        qs('aside').style.left = '100vw';
+   
     }
 }
